@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALGOMINDS | Patient Case-Taking</title><link rel="stylesheet" href="/static/style.css?v=9">
+</head>
+<body>
+<div class="ambient ambientOne"></div><div class="ambient ambientTwo"></div><div class="gridGlow"></div>
+<div id="toast" class="toast" aria-live="polite"></div>
+<div class="appShell">
+  <header class="topbar">
+    <div class="brandTop"><div class="logo">A</div><div><strong>ALGOMINDS</strong><span>Patient Case-Taking</span></div></div>
+    <div class="topActions"><span class="status"><i></i> Secure Demo</span><button class="iconBtn" onclick="theme()" title="Toggle theme">☀️</button><button class="profileBtn">SIH 2026 <b>SIH26047</b></button></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sideTitle">Clinical Workspace</div>
+      <nav>
+        <button class="navItem active" data-target="dashboard" onclick="scrollSection('dashboard')"><span>▦</span> Dashboard</button>
+        <button class="navItem" data-target="registration" onclick="scrollSection('registration')"><span>👤</span> Patient Registration</button>
+        <button class="navItem" data-target="case" onclick="scrollSection('case')"><span>🎙</span> Case Taking</button>
+        <button class="navItem" data-target="summarySection" onclick="scrollSection('summarySection')"><span>🩺</span> Clinical Summary</button>
+        <button class="navItem" data-target="assistant" onclick="scrollSection('assistant')"><span>💬</span> Patient Assistant</button>
+        <button class="navItem" data-target="report" onclick="scrollSection('report')"><span>📄</span> Patient Report</button>
+        <button class="navItem" data-target="interop" onclick="scrollSection('interop')"><span>▤</span> CSV Storage</button>
+      </nav>
+      <div class="sideCard"><div class="sideCardIcon">✓</div><div><b>Draft protected</b><p>Automatically saved in this browser.</p></div></div>
+      <div class="sideFooter">ALGOMINDS • SIH 2026<br><span>AI-assisted intake demo</span></div>
+    </aside>
+    <main class="content">
+      <section id="dashboard" class="pageSection">
+        <div class="hero"><div class="heroCopy"><div class="eyebrow"><span class="spark">✦</span> AI-ASSISTED MULTILINGUAL INTAKE</div><h1>Clinical Workspace</h1><p>Capture patient history naturally, structure it automatically, and prepare a clinician-ready case.</p><div class="heroBadges"><span>● Live AI workflow</span><span>🔒 Privacy-first demo</span><span>⚡ Instant structuring</span></div></div><button class="primary big" onclick="scrollSection('registration')">+ Start New Case</button></div>
+        <div class="statGrid revealGroup">
+          <div class="statCard"><div class="statIcon blue">👤</div><div><span>Patient</span><b id="dashPatient">Not registered</b></div></div>
+          <div class="statCard"><div class="statIcon purple">🎙</div><div><span>Case input</span><b id="dashInput">Waiting</b></div></div>
+          <div class="statCard"><div class="statIcon green">✓</div><div><span>Completeness</span><b id="dashScore">0%</b></div></div>
+          <div class="statCard"><div class="statIcon orange">⚠</div><div><span>Safety flags</span><b id="dashFlags">0</b></div></div>
+        </div>
+        <div class="dashboardGrid revealGroup"><article class="panel"><div class="panelHead"><div><span class="sectionKicker">QUICK START</span><h2>Build a patient case</h2></div><span class="liveBadge">LIVE</span></div><div class="steps"><div class="step"><b>01</b><div><strong>Register</strong><small>Patient identity & consent</small></div></div><div class="step"><b>02</b><div><strong>Capture</strong><small>Voice, text or report upload</small></div></div><div class="step"><b>03</b><div><strong>Structure</strong><small>Symptoms, history & vitals</small></div></div><div class="step"><b>04</b><div><strong>Review</strong><small>Safety, report & CSV</small></div></div></div></article><article class="panel"><span class="sectionKicker">CASE STATUS</span><h2>Current progress</h2><div class="progressTrack"><div id="progressBar"></div></div><div class="progressMeta"><span id="progressText">0 of 4 steps complete</span><span id="progressPct">0%</span></div><button class="secondary full" onclick="continueCase()">Continue case →</button></article></div>
+      </section>
+
+      <section id="registration" class="pageSection"><div class="pageTitle"><div><span class="sectionKicker">STEP 01</span><h1>Patient Registration</h1><p>Create the patient context before capturing the case.</p></div><span class="stepPill">1 / 7</span></div><article class="panel"><div class="formGrid"><label>Full name *<input id="name" placeholder="e.g. Love Singh"></label><label>Age<input id="age" type="number" placeholder="Age"></label><label>Gender<select id="gender"><option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option></select></label><label>Phone<input id="phone" placeholder="Phone number"></label><label>Patient language<select id="language"><option>English</option><option>Hindi</option><option>Hinglish</option><option>Bangla</option><option>Tamil</option><option>Telugu</option></select></label><label class="consentBox"><span>Consent</span><div><input id="consent" type="checkbox"><b>Consent obtained</b></div></label></div><div class="formActions"><span id="pmsg" class="msg"></span><button class="primary" onclick="registerPatient()">Register Patient →</button></div></article></section>
+
+      <section id="case" class="pageSection"><div class="pageTitle"><div><span class="sectionKicker">STEP 02</span><h1>Multimodal Case Taking</h1><p>Let the patient speak naturally. The draft stays saved while you work.</p></div><span class="stepPill">2 / 7</span></div><article class="panel casePanel"><div class="caseToolbar"><div class="toolbarGroup"><button class="primary" onclick="voice()" id="mic">🎙 Start microphone</button><button class="secondary" onclick="document.getElementById('file').click()">📄 Upload report</button><input id="file" type="file" hidden accept="image/*,.pdf" onchange="ocr()"></div><span id="vmsg" class="liveText">Mic ready • previous text is preserved</span></div><div class="recordingHint"><span class="pulseDot"></span> Patient can describe symptoms, history, medicines and measurements in one statement.</div><textarea id="caseText" rows="11" placeholder="Example: पिछले तीन दिन से बुखार है, सर दर्द है, भूख कम लगती है... "></textarea><div class="caseBottom"><span id="amsg" class="msg"></span><div><button class="primary" onclick="analyze()">✨ Generate Clinical Summary</button><button class="secondary" onclick="clearDraft()">Clear draft</button></div></div></article></section>
+
+      <section id="summarySection" class="pageSection"><div class="pageTitle"><div><span class="sectionKicker">STEP 03</span><h1>AI Clinical Summary</h1><p>Structured information extracted from the patient's statement.</p></div><span class="stepPill">3 / 7</span></div><div class="summaryGrid"><article class="panel"><div class="panelHead"><div><span class="sectionKicker">STRUCTURED CASE</span><h2>Clinical information</h2></div><button class="secondary small" onclick="scrollSection('case')">Edit input</button></div><div id="summary" class="emptyState"><div>🩺</div><b>No summary yet</b><span>Capture the patient's statement and generate a summary.</span></div></article><article class="panel"><div class="panelHead"><div><span class="sectionKicker">SAFETY CHECK</span><h2>Missing information & alerts</h2></div></div><div id="safety" class="emptyState compact"><b>Waiting for analysis…</b></div><div id="questions"></div></article></div></section>
+
+      <section id="assistant" class="pageSection"><div class="pageTitle"><div><span class="sectionKicker">STEP 05 · PATIENT SUPPORT</span><h1>Patient Assistant</h1><p>Ask about this case in natural language. Answers use the current case context.</p></div><span class="stepPill">5 / 7</span></div><article class="panel assistantPanel"><div class="assistantTop"><div class="assistantAvatar">A</div><div><b>ALGOMINDS Assistant</b><span>Context-aware patient guidance</span></div><span class="online"><i></i> Online</span></div><div id="chat" class="chat"></div><div class="suggestions"><button onclick="quickAsk('What do you know about me?')">What do you know about me?</button><button onclick="quickAsk('What symptoms do I have?')">My symptoms</button><button onclick="quickAsk('Do I need to see a doctor?')">Should I see a doctor?</button><button onclick="quickAsk('Explain my report simply')">Explain simply</button></div><div class="chatrow"><button id="chatMic" class="micCircle" onclick="chatVoice()">🎙</button><input id="q" placeholder="Ask anything about the current case…"><button class="primary" onclick="ask()">Send ↑</button><button class="secondary iconOnly" onclick="readLast()">🔊</button></div><small id="chatMsg" class="hint">You can type or speak. Guidance is informational and not a diagnosis.</small></article></section>
+
+      <section id="report" class="pageSection"><div class="pageTitle"><div><span class="sectionKicker">STEP 04</span><h1>Patient Report</h1><p>Review the polished report before saving or sharing it with a clinician.</p></div><span class="stepPill">4 / 7</span></div><article class="panel"><div id="preview" class="emptyState"><div>📄</div><b>Report preview</b><span>Generate a clinical summary to create the patient report.</span></div><div class="reportActions"><button class="primary" onclick="pdf()">📄 Save as PDF</button><button class="secondary" onclick="readReport()">🔊 Read report aloud</button><button class="secondary" onclick="speechSynthesis.cancel()">⏹ Stop</button></div></article></section>
+
+      <section id="interop" class="pageSection"><div class="pageTitle"><div><span class="sectionKicker">STEP 07</span><h1>CSV Case Storage</h1><p>Save the complete case as a CSV file on your computer drive.</p></div><span class="stepPill">7 / 7</span></div><article class="panel csvPanel"><div class="csvIcon">▤</div><div><h2>Local case database</h2><p id="csvPath">Cases are stored in <b>backend/data/cases.csv</b> on this computer.</p><div class="csvActions"><button class="primary" onclick="saveCSV()">💾 Save Case to CSV</button><button class="secondary" onclick="downloadCSV()">⬇ Download CSV</button></div><div id="csvMsg" class="msg"></div></div></article></section>
+
+      <footer>ALGOMINDS • SIH 2026 • SIH26047 <span>Demo MVP — AI output must be reviewed by a qualified clinician.</span></footer>
+    </main>
+  </div>
+</div>
+<script src="/static/app.js?v=9"></script>
+</body></html>
