@@ -2,6 +2,12 @@
 
 SIH 2026 MVP for SIH26047. This is a demo application, not a clinical diagnostic system.
 
+## Live Demo
+
+**Patient Case-Taking System:** https://patient-case-taking-system-8zlk.onrender.com
+
+> The Render deployment is configured with automatic deployment from the `main` branch.
+
 ## Run on Windows
 1. Install Python 3.10+.
 2. Open Command Prompt in this folder.
